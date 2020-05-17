@@ -16,3 +16,6 @@ Imports:
     subprocess (<= 0.8.4),
     cli,
     crayon
+Remotes: 
+    lbartnik/subprocess
+RoxygenNote: 7.1.0
