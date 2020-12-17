@@ -18,6 +18,7 @@
 }
 
 
+#' @importFrom utils install.packages
 install_subprocess <- function() {
   install.packages(
     'subprocess',
@@ -31,7 +32,7 @@ has_subprocess <- function() {
 
 need_subprocess <- function() {
   if (!has_subprocess()) {
-    stop_glue(
+    stop(
       " To install run 'install_subprocess()'.")
   }
 }

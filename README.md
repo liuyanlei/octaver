@@ -7,9 +7,10 @@
 
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+[![R-CMD-check](https://github.com/kvasilopoulos/octaver/workflows/R-CMD-check/badge.svg)](https://github.com/kvasilopoulos/octaver/actions)
 <!-- badges: end -->
 
-The goal of octaver is to provide an interface to Octave. octave
+The goal of octaver is to provide an interface to Octave
 
 ## Installation
 

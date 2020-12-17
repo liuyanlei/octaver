@@ -2,20 +2,17 @@
 # bin <- "C:/Octave/Octave-5.1.0.0/mingw64/bin/octave-cli-5.1.0.exe"
 # px <- processx::process$new(bin, args = c("--eval", "2+2"), stdout = "|")
 # px$read_output()
+# px$kill()
+# px$is_alive()
 # https://octave.org/doc/v4.2.1/Command-Line-Options.html
 
-find_octave <- function() {
-  Sys.which("octave-cli")
-}
 
 
 #' importFrom subprocess spawn_process process_read process_write PIPE_STDOUT
 #' importFrom subprocess process_state process_kill
-
-
 #' Octave Session
 #'
-#' Launch a NodeJS Session
+#' Launch a Octave Session
 #'
 #' @export
 OctaveSession <- R6::R6Class(
@@ -29,19 +26,19 @@ OctaveSession <- R6::R6Class(
       ...
     ){
       self$bin <- bin
-      self$handle <- spawn_process(bin, params)
-      process_read(self$handle, PIPE_STDOUT, timeout = 5000)
+      self$handle <- subprocess::spawn_process(bin, params)
+      subprocess::process_read(self$handle, subprocess::PIPE_STDOUT, timeout = 5000)
     },
     finalize = function(){
       self$kill()
     },
     eval = function(code, wait = TRUE, print = TRUE){
-      process_write(self$handle, paste(code, "\n"))
-      res <- process_read(self$handle, PIPE_STDOUT, timeout = 0)
+      subprocess::process_write(self$handle, paste(code, "\n"))
+      res <- subprocess::process_read(self$handle, subprocess::PIPE_STDOUT, timeout = 0)
       if (wait) {
         while (length(res) == 0) {
           Sys.sleep(0.1)
-          res <- process_read(self$handle, PIPE_STDOUT, timeout = 0)
+          res <- subprocess::process_read(self$handle, subprocess::PIPE_STDOUT, timeout = 0)
         }
         if (print) {
           sapply(res, handle_res)
@@ -50,11 +47,11 @@ OctaveSession <- R6::R6Class(
       }
     },
     state = function(){
-      process_state(self$handle)
+      subprocess::process_state(self$handle)
     },
     kill = function(){
       if (self$state() != "terminated") {
-        process_kill(self$handle)
+        subprocess::process_kill(self$handle)
       } else {
         cli::cat_line("Process not running:")
         self$state()

@@ -6,7 +6,7 @@
 importFrom subprocess process_state process_kill
 Octave Session}
 \description{
-Launch a NodeJS Session
+Launch a Octave Session
 }
 \section{Methods}{
 \subsection{Public methods}{
