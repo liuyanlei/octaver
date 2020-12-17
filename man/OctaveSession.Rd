@@ -2,7 +2,9 @@
 % Please edit documentation in R/R6.R
 \name{OctaveSession}
 \alias{OctaveSession}
-\title{Octave Session}
+\title{importFrom subprocess spawn_process process_read process_write PIPE_STDOUT
+importFrom subprocess process_state process_kill
+Octave Session}
 \description{
 Launch a NodeJS Session
 }

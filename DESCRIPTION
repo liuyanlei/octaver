@@ -13,10 +13,10 @@ Encoding: UTF-8
 LazyData: true
 Imports: 
     R6,
-    subprocess (<= 0.8.4),
     cli,
     crayon
-Remotes: 
-    lbartnik/subprocess
+Suggests:
+    subprocess (<= 0.8.4)
+Additional_repositories: https://kvasilopoulos.github.io/drat
 RoxygenNote: 7.1.0
 SystemRequirements: Octave

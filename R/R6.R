@@ -8,12 +8,15 @@ find_octave <- function() {
   Sys.which("octave-cli")
 }
 
+
+#' importFrom subprocess spawn_process process_read process_write PIPE_STDOUT
+#' importFrom subprocess process_state process_kill
+
+
 #' Octave Session
 #'
 #' Launch a NodeJS Session
 #'
-#' @importFrom subprocess spawn_process process_read process_write PIPE_STDOUT
-#' @importFrom subprocess process_state process_kill
 #' @export
 OctaveSession <- R6::R6Class(
   "OctaveSession",
