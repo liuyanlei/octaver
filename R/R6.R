@@ -1,77 +1,147 @@
-# Sys.which("octave-cli")
-# bin <- "C:/Octave/Octave-5.1.0.0/mingw64/bin/octave-cli-5.1.0.exe"
-# px <- processx::process$new(bin, args = c("--eval", "2+2"), stdout = "|")
-# px$read_output()
-# px$kill()
-# px$is_alive()
-# https://octave.org/doc/v4.2.1/Command-Line-Options.html
+# browseURL("https://github.com/curso-r/stockfish/blob/master/R/fish.R")
 
-
-
-#' importFrom subprocess spawn_process process_read process_write PIPE_STDOUT
-#' importFrom subprocess process_state process_kill
-#' Octave Session
+#' @importFrom processx process
 #'
-#' Launch a Octave Session
 #'
-#' @export
+#' @examples
+#' oct <- OctaveSession$new()
+#' oct$state()
+#'
+#' oct$terminate()
+#' oct$state()
+#'
 OctaveSession <- R6::R6Class(
-  "OctaveSession",
+  classname = "OctaveSession",
+
+  # Public methods
   public = list(
-    bin = NULL,
-    handle = NULL,
-    initialize = function(
-      bin = find_octave(),
-      params = "",
-      ...
-    ){
-      self$bin <- bin
-      self$handle <- subprocess::spawn_process(bin, params)
-      subprocess::process_read(self$handle, subprocess::PIPE_STDOUT, timeout = 5000)
+
+    #' @field process Connection to `{processx}` process running the engine
+    process = NULL,
+
+    #' @field output String vector with the output of the last command
+    output = NULL,
+
+    #' @field log String vector with the all outputs from the engine
+    log = NULL,
+
+    #' @description Start Stockfish engine
+    #'
+    #' By default, this function uses the included version of Stockfish. If
+    #' you want to run a more recent version, you can pass its executable as
+    #' an argument. For more information, see the Bundled Stockfish section of
+    #' this documentation.
+    #'
+    #' @param path Path to Stockfish executable (defaults to bundled version)
+    initialize = function(path = NULL, ...) {
+
+      # Check for user-supplied executable
+      exe <- if (is.null(path)) find_octave() else path.expand(path)
+
+      # Start process
+      self$process <- processx::process$new(exe, stdin = "|", stdout = "|", stderr = "|", ...)
+
+      # Record output
+      self$process$poll_io(100)
+      self$output <- self$process$read_output()
+      self$log <- self$output
     },
-    finalize = function(){
-      self$kill()
+
+    run = function(command, infinite = FALSE) {
+
+      # Send command to engine
+      self$process$write_input(paste0(command, "\n"))
+
+      # If command is infinite, let it run without polling
+      if (infinite) {
+        return(NULL)
+      }
+
+      # Read from connection until process stops processing
+      output <- c()
+      while (TRUE) {
+
+        # Poll IO and read output
+        self$process$poll_io(500) # TODO make this an option
+        tmp <- self$process$read_output()
+
+        if (tmp == "") {
+          break()
+        }
+
+        # Choose separator based on OS
+        if (.Platform$OS.type == "windows") sep <- "\r\n" else sep <- "\n"
+
+        # Parse output
+        output <- c(output, strsplit(tmp, sep, perl = TRUE)[[1]])
+        output <- paste0(output, collapse = "") # TODO handle output
+      }
+
+      # Update output field and the log
+      self$output <- output
+      self$log <- c(self$log, output)
+
+
+      return(output)
     },
-    eval = function(code, wait = TRUE, print = TRUE){
-      subprocess::process_write(self$handle, paste(code, "\n"))
-      res <- subprocess::process_read(self$handle, subprocess::PIPE_STDOUT, timeout = 0)
-      if (wait) {
-        while (length(res) == 0) {
-          Sys.sleep(0.1)
-          res <- subprocess::process_read(self$handle, subprocess::PIPE_STDOUT, timeout = 0)
-        }
-        if (print) {
-          sapply(res, handle_res)
-        }
-        return(invisible(res))
+
+    kill = function() {
+      self$process$kill()
+      self$print()
+    },
+    terminate = function() {
+      self$process$kill()
+      self$print()
+    },
+
+    state = function() {
+      if(self$process$is_alive()) {
+        self$process$get_status()
+      }else{
+        self$print()
+        invisible("terminated")
       }
     },
-    state = function(){
-      subprocess::process_state(self$handle)
-    },
-    kill = function(){
-      if (self$state() != "terminated") {
-        subprocess::process_kill(self$handle)
-      } else {
-        cli::cat_line("Process not running:")
-        self$state()
-      }
+
+    #' @description Print information about engine process.
+    #'
+    #' @param ... Arguments passed on to `print()`
+    print = function(...) {
+      print(self$process, ...)
+      # sapply(self$process, handle_res)
+    }
+  ),
+
+  # Private methods
+  private = list(
+
+    # @description Kill engine when object is collected
+    finalize = function() {
+      tryCatch(
+        self$run("quit"),
+        error = function(err) { }
+      )
     }
   )
 )
 
+
 handle_res <- function(res){
-  if (res == "undefined") {
-    res <- crayon::blue(res)
-  }
   cli::cat_line(res)
 }
+
+
+
 
 #' Repl octave
 #'
 #'
 #' @importFrom cli cat_rule cat_line
 #' @export
+#'
+#' @examples
+#' OctaveREPL$new()
+#' A = 1;
 OctaveREPL <- R6::R6Class(
   "OctaveRepl",
   inherit = OctaveSession,
@@ -107,11 +177,16 @@ OctaveREPL <- R6::R6Class(
         # )
         x <- readline(self$np)
         # write(x, private$hist, append = TRUE)
-        process_write(self$handle, paste(x, "\n\n"))
-        res <- process_read(self$handle, PIPE_STDOUT, timeout = 0)
+
+        self$process$write_input(paste0(x, "\n"))
+
+        self$process$poll_io(500)
+        res <- self$process$read_output()
+
+
         while (length(res) == 0) {
           Sys.sleep(0.1)
-          res <- process_read(self$handle, PIPE_STDOUT, timeout = 0)
+          res <- self$process$read_output()
         }
         np <- res#[length(res)]
         bod <- res#[-length(res)]

@@ -40,6 +40,9 @@ library(octaver)
 pr <- OctaveSession$new()
 pr$eval("2+2")
 
+pr$eval("A = 2+2")
+pr$eval("A")
+
 pr$state()
 pr$kill()
 pr$state()

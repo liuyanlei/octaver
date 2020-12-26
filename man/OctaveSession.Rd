@@ -15,6 +15,7 @@ Launch a Octave Session
 \item \href{#method-finalize}{\code{OctaveSession$finalize()}}
 \item \href{#method-eval}{\code{OctaveSession$eval()}}
 \item \href{#method-state}{\code{OctaveSession$state()}}
+\item \href{#method-terminate}{\code{OctaveSession$terminate()}}
 \item \href{#method-kill}{\code{OctaveSession$kill()}}
 \item \href{#method-clone}{\code{OctaveSession$clone()}}
 }
@@ -52,6 +53,15 @@ Launch a Octave Session
 \subsection{Method \code{state()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{OctaveSession$state()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-terminate"></a>}}
+\if{latex}{\out{\hypertarget{method-terminate}{}}}
+\subsection{Method \code{terminate()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{OctaveSession$terminate()}\if{html}{\out{</div>}}
 }
 
 }

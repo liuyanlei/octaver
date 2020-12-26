@@ -26,6 +26,7 @@ Repl octave
 \item \out{<span class="pkg-link" data-pkg="octaver" data-topic="OctaveSession" data-id="finalize">}\href{../../octaver/html/OctaveSession.html#method-finalize}{\code{octaver::OctaveSession$finalize()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="octaver" data-topic="OctaveSession" data-id="kill">}\href{../../octaver/html/OctaveSession.html#method-kill}{\code{octaver::OctaveSession$kill()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="octaver" data-topic="OctaveSession" data-id="state">}\href{../../octaver/html/OctaveSession.html#method-state}{\code{octaver::OctaveSession$state()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="octaver" data-topic="OctaveSession" data-id="terminate">}\href{../../octaver/html/OctaveSession.html#method-terminate}{\code{octaver::OctaveSession$terminate()}}\out{</span>}
 }
 \out{</details>}
 }
