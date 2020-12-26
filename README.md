@@ -28,15 +28,12 @@ This is a basic example which shows you how to solve a common problem:
 
 ``` r
 library(octaver)
-## basic example code
-pr <- OctaveSession$new()
-pr$eval("2+2")
-#> ans =  4
+find_octave()
+#>                                           octave-cli 
+#> "C:\\Octave\\OCTAVE~1.0\\mingw64\\bin\\OCC5B3~1.EXE"
+```
 
-pr$state()
-#> [1] "running"
-pr$kill()
-#> [1] TRUE
-pr$state()
-#> [1] "terminated"
+``` octave
+A = 1;
+A
 ```

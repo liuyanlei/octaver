@@ -1,5 +1,5 @@
 Package: octaver
-Title: What the Package Does (One Line, Title Case)
+Title: Call Octave from Within R
 Version: 0.0.0.9000
 Authors@R: 
     person(given = "Kostas",
@@ -7,7 +7,7 @@ Authors@R:
            role = c("aut", "cre"),
            email = "k.vasilopoulo@gmail.com",
            comment = c(ORCID = "0000-0002-9769-6395"))
-Description: What the package does (one paragraph).
+Description: Launch and Interact with a Octave Session.
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
@@ -16,12 +16,11 @@ Imports:
     processx,
     cli,
     crayon,
-    knitr
+    knitr,
+    R.matlab
 Suggests:
-    subprocess (<= 0.8.4),
     testthat (>= 3.0.0),
     rstudioapi
-Additional_repositories: https://kvasilopoulos.github.io/drat
 RoxygenNote: 7.1.1
 SystemRequirements: Octave
 Config/testthat/edition: 3

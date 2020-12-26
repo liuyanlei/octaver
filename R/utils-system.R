@@ -2,8 +2,16 @@ os_type <- function() {
   .Platform$OS.type
 }
 
+#' @export
 find_octave <- function() {
-  Sys.which("octave-cli")
+  x <- Sys.which("octave-cli")
+
+  if (x == ""){
+    stop("Couldn't find NodeJS.\nPlease provide its path manually.")
+    return(NULL)
+  } else {
+    return(x)
+  }
 }
 
 

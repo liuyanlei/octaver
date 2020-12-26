@@ -30,12 +30,12 @@ You can install the development version from [GitHub](https://github.com/) with:
 # install.packages("devtools")
 devtools::install_github("kvasilopoulos/octaver")
 ```
-## Example
+## Session
 
-This is a basic example which shows you how to solve a common problem:
-
-```{r example}
+```{r session}
 library(octaver)
+find_octave()
+
 ## basic example code
 pr <- OctaveSession$new()
 pr$eval("2+2")
@@ -48,3 +48,15 @@ pr$kill()
 pr$state()
 ```
 
+## REPL
+
+```{r repl, eval=FALSE, include=FALSE}
+OctaveREPL$new()
+```
+
+## Knitr engine
+
+```{octave eval = TRUE} 
+A = 1;
+A
+```
