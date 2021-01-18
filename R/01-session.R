@@ -1,4 +1,4 @@
-# browseURL("https://github.com/curso-r/stockfish/blob/master/R/fish.R")
+# TODO update state
 
 #' @importFrom processx process
 #'
@@ -6,6 +6,7 @@
 #'
 #' @export
 #' @examples
+#' \dontrun{
 #' oct <- OctaveSession$new()
 #' oct$state()
 #'
@@ -16,7 +17,7 @@
 #'
 #' oct$terminate()
 #' oct$state()
-#'
+#'}
 OctaveSession <- R6::R6Class(
   classname = "OctaveSession",
 
@@ -69,7 +70,7 @@ OctaveSession <- R6::R6Class(
       while (TRUE) {
 
         # Poll IO and read output
-        self$process$poll_io(0)
+        self$process$poll_io(500)
         tmp <- self$process$read_output()
 
         if (tmp == "") {
@@ -106,7 +107,9 @@ OctaveSession <- R6::R6Class(
     #' @examples
     #' \dontrun{
     #' n <- OctaveSession$new()
-    #' n$assign(carz, cars)
+    #' n$assign(carz, mtcars)
+    #' n$eval("whos")
+    #'
     #' n$get(carz)
     #' }
     assign = function(name, value){
@@ -115,25 +118,49 @@ OctaveSession <- R6::R6Class(
         stop("Missing `name`", call. = FALSE)
       if(missing(value))
         stop("Missing `value`", call. = FALSE)
+      name <- rlang::as_label(rlang::enquo(name))
 
-      quo_name <- enquo(name)
-      name <- as_label(quo_name)
+      tmp <- tempfile(fileext = ".mat")
+      mat_write(tmp, x = value)
+      self$eval(paste("load", tmp))
+      self$eval(paste0(name, " = x;"))
+      self$eval("clear x;")
 
-      json_fs <- as_json_file(name, value, type) # write temp file
-      self$eval(json_fs$call, print = FALSE) # read temp file
-      unlink(json_fs$tempfile, force = TRUE) # delete temp file
-
-
-      json <- as_json_string(name, value, type)
-      self$eval(json, print = FALSE)
+      unlink(tmp, force = TRUE) # delete temp file
 
       invisible(self)
     },
 
+    #' @details
+    #' Retrieve Octave objects
+    #'
+    #' @param var Bare name of object to retrieve.
+    #'
+    #' @examples
+    #' \dontrun{
+    #' n <- OctaveSession$new()
+    #' n$eval("x = 12")
+    #' n$get("x")
+    #' }
+    get = function(var){
+      # var <- rlang::as_label(rlang::enquo(var))
 
-    kill = function() {
+      tmp <- tempfile(fileext = ".mat")
+      mat_write(tmp, onWrite = on_write)
+
+      # catch error is object is JSON
+      results <- tryCatch(
+        mat_read(tmp),
+        error = function(e) e
+      )
+
+      return(results)
+    },
+
+    kill = function(silent = FALSE) {
       self$process$kill()
-      self$print()
+      if(isFALSE(silent))
+        self$print()
     },
     terminate = function() {
       self$process$kill()
@@ -172,8 +199,6 @@ OctaveSession <- R6::R6Class(
 
   ),
 
-
-
   # Private methods
   private = list(
 
@@ -194,6 +219,12 @@ OctaveSession <- R6::R6Class(
     # }
   )
 )
+
+on_write <- function(x) {
+  writeBin(x$length, con = x$con, size = 4, endian = "little")
+}
+
+
 
 
 handle_res <- function(res){

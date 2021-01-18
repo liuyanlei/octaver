@@ -15,12 +15,12 @@ Imports:
     R6,
     processx,
     cli,
-    crayon,
     knitr,
     R.matlab
 Suggests:
     testthat (>= 3.0.0),
-    rstudioapi
+    rstudioapi,
+    covr
 RoxygenNote: 7.1.1
 SystemRequirements: Octave
 Config/testthat/edition: 3

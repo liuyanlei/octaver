@@ -20,8 +20,6 @@ with_envvar <- function(new, code) {
   force(code)
 }
 
-os_platform <- function() .Platform$OS.type
-
 `%||%` <- function(l, r) if (is.null(l)) r else l
 
 
@@ -32,3 +30,5 @@ update_history <- function(cmd) {
   cat(cmd, "\n", sep = "", file = tmp, append = TRUE)
   utils::loadhistory(tmp)
 }
+
+

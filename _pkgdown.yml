@@ -1,0 +1,61 @@
+title: octaver
+url: https://kvasilopoulos.github.io/octaver
+
+development:
+  mode: auto
+
+template:
+  params:
+    bootswatch: cosmo
+
+authors:
+  Kostas Vasilopoulos:
+    href: https://kvasilopoulos.com/
+
+reference:
+
+  - title: Introduction
+    contents:
+      - octaver
+
+   - title: Run octave
+    contents:
+      - oct
+
+  - title: Run .m script
+    contents:
+      - oct_script
+
+  - title: Persistent background R session
+    contents:
+      - oct_session
+
+  - title: Octave REPL
+    contents:
+      - oct_repl
+
+  - title: Knitr
+    contents:
+      - set_octave_engine
+
+  - title: Read & Write .mat files
+    contents:
+      - mat_read
+      - mat_write
+
+  - title: Installation
+    contents:
+      - install_octave
+      - install_pkg
+
+navbar:
+  type: default
+  left:
+  - text: Reference
+    href: reference/index.html
+  - text: Articles
+    menu:
+  - text: News
+    menu:
+    - text: "Change log"
+      href: news/index.html

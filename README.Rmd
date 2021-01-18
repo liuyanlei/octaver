@@ -16,8 +16,10 @@ knitr::opts_chunk$set(
 # octaver
 
 <!-- badges: start -->
+[![CRAN status](https://www.r-pkg.org/badges/version/octaver)](https://CRAN.R-project.org/package=octaver)
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![R-CMD-check](https://github.com/kvasilopoulos/octaver/workflows/R-CMD-check/badge.svg)](https://github.com/kvasilopoulos/octaver/actions)
+[![Codecov test coverage](https://codecov.io/gh/kvasilopoulos/octaver/branch/master/graph/badge.svg)](https://codecov.io/gh/kvasilopoulos/octaver?branch=master)
 <!-- badges: end -->
 
 The goal of octaver is to provide an interface to Octave 
@@ -43,9 +45,7 @@ pr$eval("2+2")
 pr$eval("A = 2+2")
 pr$eval("A")
 
-pr$state()
 pr$kill()
-pr$state()
 ```
 
 ## REPL
@@ -60,3 +60,49 @@ OctaveREPL$new()
 A = 1;
 A
 ```
+
+
+## API
+
+
+### Various .m scripts
+
+m_
+
+### Run
+
+oct_run():
+oct_addpath():
+
+### Session & Repl
+<!-- > Steam connections -->
+
+oct_session():
+oct_repl():
+
+### Knitr
+
+set_oct_engine():
+
+### Read & Write
+
+write_mat():
+read_mat():
+
+### Installation helpers
+
+install_oct():
+install_pkg():
+
+### Other helpers
+
+has_octave():
+octave_path():
+find_octave():
+list_pkgs():
+
+
+
+
+
+
