@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://kvasilopoulos.github.io/octaver/index.html</loc>
+  </url>
+  <url>
+    <loc>https://kvasilopoulos.github.io/octaver/reference/OctaveREPL.html</loc>
+  </url>
+  <url>
+    <loc>https://kvasilopoulos.github.io/octaver/reference/clean_struct.html</loc>
+  </url>
+  <url>
+    <loc>https://kvasilopoulos.github.io/octaver/reference/mat_read.html</loc>
+  </url>
+  <url>
+    <loc>https://kvasilopoulos.github.io/octaver/reference/mat_write.html</loc>
+  </url>
+  <url>
+    <loc>https://kvasilopoulos.github.io/octaver/reference/set_octave_engine.html</loc>
+  </url>
+</urlset>
