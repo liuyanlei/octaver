@@ -10,10 +10,22 @@
     <loc>https://kvasilopoulos.github.io/octaver/reference/clean_struct.html</loc>
   </url>
   <url>
+    <loc>https://kvasilopoulos.github.io/octaver/reference/install_octave.html</loc>
+  </url>
+  <url>
+    <loc>https://kvasilopoulos.github.io/octaver/reference/install_pkg.html</loc>
+  </url>
+  <url>
     <loc>https://kvasilopoulos.github.io/octaver/reference/mat_read.html</loc>
   </url>
   <url>
     <loc>https://kvasilopoulos.github.io/octaver/reference/mat_write.html</loc>
+  </url>
+  <url>
+    <loc>https://kvasilopoulos.github.io/octaver/reference/oct.html</loc>
+  </url>
+  <url>
+    <loc>https://kvasilopoulos.github.io/octaver/reference/oct_script.html</loc>
   </url>
   <url>
     <loc>https://kvasilopoulos.github.io/octaver/reference/set_octave_engine.html</loc>
