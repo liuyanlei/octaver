@@ -72,4 +72,3 @@ OctaveREPL <- R6::R6Class(
     hist = NULL
   )
 )
-

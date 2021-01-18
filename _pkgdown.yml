@@ -25,11 +25,11 @@ reference:
 
   - title: Persistent background R session
     contents:
-      - oct_session
+      - OctaveSession
 
   - title: Octave REPL
     contents:
-      - oct_repl
+      - octREPL
 
   - title: Knitr
     contents:

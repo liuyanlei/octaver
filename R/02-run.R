@@ -1,3 +1,5 @@
+#' Run Octave
+#'
 #' @export
 #' @examples
 #' \dontrun{
@@ -14,6 +16,8 @@ oct <- function(code, args = character(), spinner = FALSE,
 
 }
 
+#' Run Octave script
+#'
 #' @export
 #' @example
 #'\dontrun{

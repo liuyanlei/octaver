@@ -1,4 +1,6 @@
 
+#' Install Octave
+#'
 #' @export
 install_octave <- function(keep_install_file = FALSE, download_dir = tempdir(), silent = FALSE, ...) {
   url <- "https://ftpmirror.gnu.org/octave/windows/octave-6.1.0-w64-installer.exe"
@@ -69,6 +71,9 @@ install_url <- function(
   return(TRUE)
 }
 
+#' Install Octave pkgs
+#'
+#'
 #' @export
 install_pkg <- function(update = TRUE) {
 
