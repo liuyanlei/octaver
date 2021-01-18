@@ -14,13 +14,10 @@ authors:
 
 reference:
 
-  - title: Introduction
-    contents:
-      - octaver
-
-   - title: Run octave
+  - title: Run octave
     contents:
       - oct
+      - oct_addpath
 
   - title: Run .m script
     contents:
@@ -50,12 +47,23 @@ reference:
 
 navbar:
   type: default
-  left:
-  - text: Reference
-    href: reference/index.html
-  - text: Articles
-    menu:
-  - text: News
-    menu:
-    - text: "Change log"
+  structure:
+    left:
+    - home
+    - reference
+    right:
+    - news
+    - github
+  components:
+    home:
+      icon: fa-home fa-lg
+      href: index.html
+    reference:
+      text: Reference
+      href: reference/index.html
+    news:
+      text: News
       href: news/index.html
+    github:
+      icon: fa-github fa-lg
+      href: https://github.com/kvasilopoulos/octaver
