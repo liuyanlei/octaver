@@ -1,5 +1,5 @@
 title: octaver
-url: https://kvasilopoulos.github.io/octaver
+url: https://github.com/liuyanlei/octaver
 
 development:
   mode: auto
@@ -10,7 +10,7 @@ template:
 
 authors:
   Kostas Vasilopoulos:
-    href: https://kvasilopoulos.com/
+    href: https://liuyanlei.com/
 
 reference:
 
@@ -66,4 +66,4 @@ navbar:
       href: news/index.html
     github:
       icon: fa-github fa-lg
-      href: https://github.com/kvasilopoulos/octaver
+      href: https://github.com/liuyanlei/octaver
