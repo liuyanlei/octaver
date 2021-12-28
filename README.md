@@ -23,7 +23,7 @@ You can install the development version from
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("kvasilopoulos/octaver")
+devtools::install_github("liuyanlei/octaver")
 ```
 
 ## Session
