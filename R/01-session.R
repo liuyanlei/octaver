@@ -68,14 +68,9 @@ OctaveSession <- R6::R6Class(
       # Read from connection until process stops processing
       output <- c()
       while (TRUE) {
-        print('in eval output')
-
         # Poll IO and read output
         self$process$poll_io(800)
         tmp <- self$process$read_output()
-        print('read out put')
-        print(tmp)
-
         if (tmp == "") {
           break
         }
